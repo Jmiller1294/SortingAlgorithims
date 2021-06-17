@@ -20,7 +20,7 @@ public interface SortDriverInterface {
 	 * </ol>
 	 *
 	 */
-	public static enum ArrayType {Equal, Random, Increasing, Decreasing, IncreasingAndRandom};
+	public static enum ArrayType { Equal, Random, Increasing, Decreasing, IncreasingAndRandom };
 	
 	/**
 	 * This <code>enum</code> is used to specify the desired sort algorithm:
@@ -32,7 +32,7 @@ public interface SortDriverInterface {
 	 * </ol>
 	 *
 	 */
-	public static enum SortType {BubbleSort, SelectionSort, InsertionSort};
+	public static enum SortType { BubbleSort, SelectionSort, InsertionSort };
 	
 	/**
 	 * 

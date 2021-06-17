@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class TestTimes {
 	
@@ -29,8 +29,8 @@ public class TestTimes {
 	public void addTestTime(long testTime) {
 		if(myList.size() < 10) {
 			myList.add(testTime);
-			System.out.println(Arrays.toString(myList.toArray()));
-			System.out.println(myList.size());
+			//System.out.println(Arrays.toString(myList.toArray()));
+			//System.out.println(myList.size());
 		}
 		else {
 			myList.remove(0);
