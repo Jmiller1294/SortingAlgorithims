@@ -3,23 +3,20 @@ import java.util.Random;
 
 public class SortDriver implements SortDriverInterface {
 	
-
+	
 	public static void main(String[] args) {
 		SortDriver s = new SortDriver();
-		//s.runSort(SortType.BubbleSort, ArrayType.Equal, 1000, 10);
-		s.runSort(SortType.BubbleSort, ArrayType.IncreasingAndRandom, 1000, 10);
-		//s.runSort(SortType.BubbleSort, ArrayType.Increasing, 1000, 10);
-		//s.runSort(SortType.InsertionSort, ArrayType.Equal, 1000, 10);
-		//s.runSort(SortType.SelectionSort, ArrayType.Equal, 1000, 10);
-		//TestTimes testTime = new TestTimes();
-		
+		s.runSort(SortType.BubbleSort, ArrayType.Equal, 1000, 10);
+		System.out.println(Arrays.deepToString(s.runSort(SortType.BubbleSort, ArrayType.Decreasing, 1000, 2)));
 	}
 	
 	public Integer[] createArray(ArrayType arrayType, int arraySize) {
+		
 		Integer[] array = new Integer[arraySize];
 		Random rand = new Random();
 		int upperBound = 1000000;
 		int sum = 0;
+		
 		switch(arrayType) {
 			case Equal:
 				for(int i = 0; i < array.length; i++) {
@@ -52,46 +49,43 @@ public class SortDriver implements SortDriverInterface {
 				}
 				break;
 		}
-		
 		return array;
 	}
 	
 
 	public Object[] runSort(SortDriverInterface.SortType sortType, SortDriverInterface.ArrayType arrayType,
-			int arraySize, int numberOfTimes) {
+		int arraySize, int numberOfTimes) {
 		
+		Object[] objArr = new Object[(numberOfTimes * 2) + 1];
 		SortDriver sort = new SortDriver();
 		TestTimes testTime = new TestTimes();
-		Integer[] arr = sort.createArray(arrayType, arraySize);
-		System.out.println(Arrays.deepToString(arr));
 		
-		while(numberOfTimes > 0 ) {
+		for(int i = 0; i < numberOfTimes * 2; i += 2) {
+			Integer[] unsortedArr = sort.createArray(arrayType, arraySize);
+			Integer[] copyArr = sort.createArray(arrayType, arraySize);
+			objArr[i] = copyArr;
 			long startTime = System.nanoTime();
 				switch(sortType) {
 			      case BubbleSort:
 			    	  BubbleSort bubbleSort = new BubbleSort();
-			    	  bubbleSort.sort(arr);
-			    	  System.out.println("bubble");
+			    	  bubbleSort.sort(unsortedArr);
 			        break;
 			      case InsertionSort:
 			    	  InsertionSort insertionSort = new InsertionSort();
-			    	  insertionSort.sort(arr);
-			    	  System.out.println("insertion");
+			    	  insertionSort.sort(unsortedArr);
 			        break;
 			      case SelectionSort:
 			    	SelectionSort selectionSort = new SelectionSort();
-			    	selectionSort.sort(arr);
-			        System.out.println("selection");
+			    	selectionSort.sort(unsortedArr);
 			        break;
 			    }
 			long endTime = System.nanoTime();
 			long time = (endTime - startTime);
 			testTime.addTestTime(time);
-			System.out.println(Arrays.toString(testTime.getTestTimes()));
-			numberOfTimes--;
-			
+			objArr[i + 1] = unsortedArr;
 		}
-		return null;
+		objArr[numberOfTimes * 2] = testTime;
+		return objArr;
 	}
 
 }
